@@ -9,7 +9,6 @@ const server =http.createServer((req,res)=>{
         case "/home":
           res.end("Home page: " );
           break;
-        
         case "/contact":
           res.end("Contact page: ");
           break;

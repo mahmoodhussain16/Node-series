@@ -2,6 +2,14 @@ const http =require('http')
 const fs =require('fs')
 const server =http.createServer((request,response)=>{
     let path =request.url;
+    const product= fs.readFileSync(`${__dirname}/userApi/userapi.json`,'utf-8')
+
+
+        //api call
+        const objData=JSON.parse(product);
+        response.end(product.name);
+        
+ 
     // response.end(path)//path change in browser from change request
 
   //simple routing handling different pages
@@ -11,16 +19,10 @@ const server =http.createServer((request,response)=>{
         response.end('about page');
     }else if(path==='/contact'){
         response.end('Contact page');
-    }else if(path==='/userapi'){ 
-        //Api data collect  userApi  folder
-        fs.readFile(`${__dirname}/userApi/userapi.json`,'utf-8',(err,data)=>{
-            console.log(data);
+    }else if(path==='/userapi'){
+        response.writeHead(200,{'content-type':'application/json'})//status code
+        response.end(objData.name)
 
-            //api call
-            const objData=JSON.parse(data);
-            response.end(objData.name);
-         
-        })
      
     }
     else{
